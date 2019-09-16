@@ -1,0 +1,62 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="/static/css/styles.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/static/js/main.js"></script>
+</head>
+
+<body>
+    <div class="content">
+            <div class="container addnote theme">
+                <form class="addnoteform" method="post" action="/addnote" id="inputbar">
+                    <textarea class="newnotetextbox" autocomplete="off" type="text" name="inputbar" placeholder="Hmm?"
+                        autofocus></textarea>
+                    <button class="newnotebutton" type="submit" class="addButton">add</button>
+                </form>
+            </div>
+        <div class="container notebox">
+            <div class="text header">Notes</div>
+            <div class="notelist">
+                {% if notes %}
+                {% for note in notes %}
+                <div class="note theme">
+                    <div class="header">
+                        <div class="text info left">{{ note["time"] }}</div>
+                        <div class="text info center">{{ note["title"] }}</div>
+                        <div class="text info right">
+                            <form class="notebuttons" action="/editnote" method="post">
+                                <button type="submit" class="button" formaction="/editnote" form="inputbar"
+                                    name="editNote" value="{{note['id']}}"
+                                    onclick="return confirm('Are you sure you wanna edit note?')">e</button>
+                                </form>
+
+                            <form class=" notebuttons" action="/delnote" method="post">
+
+                                    <button type="submit" class="button" name="deleteNote" value="{{note['id']}}"
+                                        onclick="return confirm('Are you sure you wanna delete?')">x</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="text info body">
+                        <pre>{{ note["content"] }}</pre>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="text info body theme">There are no notes. Add one above.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+<script>
+$(".notelist").floatingScroll("init");
+$("#refresh-button").click(function () {
+    // ... some actions which change the total scroll width of the container ...
+    $(".notelist").floatingScroll("update");
+});
+</script>
+</body>
+
+</html>
