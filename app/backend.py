@@ -1,6 +1,6 @@
 from mongoengine import *
 from datetime import datetime
-from app.prettyDate import prettyDate
+from app.prettydate import prettyDate
 
 connect("hmm", host="localhost", port=27017)
 
@@ -35,14 +35,16 @@ def editNote(noteId, content):
 
 def searchNotes(searchTerm):
     results = Notes.objects(content__icontains=searchTerm)
+    x = []
     if results:
         print(f"There are {len(results)} results for term: {searchTerm}")
         for note in results:
             time = prettyDate(note.time)
-            Id = note.id
-            print(f"{Id} - {time} - {note.content}")
+            payload = {"id": note.id, "time": time, "title": note.title, "content": note.content}
+            x.append(payload)
+        return {"results": results, "searchterm": searchTerm}
     else:
-        print(f"No results for term: {searchTerm}")
+        return {"results": results, "searchterm": searchTerm}
 
 def listNotes():
     numNotes = Notes.objects.count()
@@ -51,4 +53,5 @@ def listNotes():
         time = prettyDate(note.time)
         payload = {"id": note.id, "time": time, "title": note.title, "content": note.content}
         noteList.append(payload)
+    print(noteList)
     return noteList

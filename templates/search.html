@@ -16,29 +16,31 @@
 </head>
 
 <body>
-    <div id="main">
-
-        <div class="inputdiv">
-            <form id="inputform" method="post">
-                <textarea id="inputbar" autocomplete="off" type="text" spellcheck="false" name="inputbar"
-                    placeholder="Hmm?" autofocus></textarea>
-                <div id="inputbarbuttondiv">
-                    <button class="button main" id="searchnote" type="submit" formaction="/searchnote">Search</button>
-                    <button class="button main" id="addnote" type="submit" formaction="/addnote">add</button>
+    <div style="display: grid; grid-row-gap: 20px; width: 90%;">
+        <div class="addnote" style="display: grid; grid-row-gap: 5px;">
+            <form method="post" action="/addnote"
+                style="display: grid; width: 100%; grid-template-columns: 1fr auto; grid-column-gap: 5px;">
+                <textarea id="inputbar" autocomplete="off" type="text" name="inputbar" placeholder="Hmm?"
+                    autofocus></textarea>
+                <div style="display:grid; grid-row-gap: 2px;">
+                    <button class="button main" id="searchButton" type="submit" formaction="/searchnote">Search</button>
+                    <button class="button main" id="addButton" type="submit">add</button>
                 </div>
             </form>
         </div>
 
-        <div id="notediv">
+        <div id="notelist" style="max-height: 80vh; overflow: auto;">
             {% if notes %}
-            <ul id="notelist" class="collapsible">
+            <ul class="collapsible" style="display: grid; grid-row-gap: 5px;scroll-behavior: smooth;">
                 {% for note in notes %}
 
                 <li class="bg">
-                    <div class="collapsible-header" id="noteheader">
-                        <div class="text header left">{{ note["time"] }}</div>
+                    <div class="collapsible-header" id="noteheader"
+                        style="display: flex; background-color: var(--main); justify-content: space-between;">
+                        <div class="text" style="width:200px; justify-content: flex-start">{{ note["time"] }}</div>
                         <div class="text">{{ note["title"] }}</div>
-                        <div class="text header right">
+                        <div class="text"
+                            style="display: grid; grid-auto-flow: column; grid-column-gap: 3px; width: 200px; justify-content: flex-end;">
                             <form action="/editnote" method="post">
                                 <button type="submit" class="button note" formaction="/editnote" form="inputbar"
                                     name="editNote" value="{{note['id']}}"
@@ -46,21 +48,22 @@
                             </form>
 
                             <form action="/delnote" method="post">
+
                                 <button type="submit" class="button note" name="deleteNote" value="{{note['id']}}"
                                     onclick="return confirm('Are you sure you wanna delete?')">x</button>
                             </form>
                         </div>
                     </div>
 
-                    <div class="collapsible-body" id="notetext">
-                        <pre contenteditable="true" spellcheck="false">{{ note["content"] }}</pre>
+                    <div class="notetext collapsible-body" id="notecontent">
+                        <pre>{{ note["content"] }}</pre>
                     </div>
                 </li>
 
                 {% endfor %}
             </ul>
             {% else %}
-            <div class="text bg" style="color: var(--fg)">There are no notes. Add one above.</div>
+            <div class="text bg" style="color: var(--fg)">No results for: {{ searchterm }}</div>
             {% endif %}
 
         </div>

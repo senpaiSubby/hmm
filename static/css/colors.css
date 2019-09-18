@@ -3,13 +3,9 @@
 :root {
     /* Special */
     --transback: rgba(30, 30, 30, 0.8);
-    --transheader: rgba(17, 17, 17, .50);
-    --background: #1d2021;
-    --main: var(--color4);
-    --foreground: #fbf1c7;
-    --info: var(--color2);
-    --stats: var(--color3);
-    --tableBorder: rgba(255, 255, 255, .6);
+    --bg: #1d2021;
+    --fg: #93A1A1;
+    --main: #93A1A1;
 
     /* Colors */
     --color0: #282828;

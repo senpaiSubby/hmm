@@ -28,6 +28,14 @@ async def nadd():
 
     return redirect(url_for("home"))
 
+@app.route("/searchnote", methods=["POST"])
+async def nsearch():
+    form = await request.form
+    if form["inputbar"]:
+        results = searchNotes(form["inputbar"])
+        return await render_template("/search.html", notes=results["results"], searchterm=results["searchterm"])
+    return redirect(url_for("home"))
+
 @app.route("/editnote", methods=["POST"])
 async def nedit():
     form = await request.form

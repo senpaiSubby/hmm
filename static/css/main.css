@@ -1,0 +1,37 @@
+@import "/static/css/colors.css";
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro&display=swap');
+
+:root {line-height: 1;font-family: Source Sans Pro;font-size: 10px;font-weight: bold;height: 100%;}
+* {box-sizing: border-box;margin: 0;padding: 0}
+html {scroll-behavior: smooth;}
+
+body {display: flex;justify-content: center;align-items: center;background-attachment: fixed;background-image: url(/static/img/bg.jpg);background-position: center;background-repeat: no-repeat;background-size: cover;height: 100%;backdrop-filter: blur(20px);}
+#main {display: grid; grid-row-gap: 20px; width: 90%;}
+
+.bg {background-color: var(--transback);}
+
+.inputdiv {display: grid; grid-row-gap: 5px;}
+#inputform {display: grid; width: 100%; grid-template-columns: 1fr auto; grid-column-gap: 5px;}
+#inputbar {background: var(--color0);color: var(--fg);border: none;padding: 5px;font-size: 1.6rem;min-height: 52px;max-height: 96vh;outline: none;resize: vertical;}
+#inputbar::placeholder {color: var(--color2);}
+#inputbarbuttondiv {display:grid; grid-row-gap: 2px;}
+
+#notediv {max-height: 80vh; overflow: auto;}
+#notelist {display: grid; grid-row-gap: 5px;scroll-behavior: smooth;}
+#noteheader {display: flex; background-color: var(--main); justify-content: space-between; outline: none !important;}
+#notetext {color: var(--fg);font-size: 1.7rem;line-height: 1.2;display: none;padding: 10px;}
+pre {font-family: Source Sans Pro;font-weight: normal;white-space: pre-wrap;width: 100%;outline: none;}
+
+.button {border: none;padding: 5px;text-transform: uppercase;font-weight: 600;}
+.button.main {background: var(--main);color: var(--color0);}
+.button.note {background: var(--bg);color: var(--color4);width: 25px;}
+
+
+.text {display: flex;align-items: center;justify-content: center;outline: 0;padding: 5px;text-decoration: none;font-size: 1.5rem;color: var(--bg);}
+.text.header.left {width:200px; justify-content: flex-start}
+.text.header.right {display: grid; grid-auto-flow: column; grid-column-gap: 3px; width: 200px; justify-content: flex-end;}
+
+::-webkit-scrollbar {width: 0.5em;height: 0.5em}
+::-webkit-scrollbar-button {background: none;height: 0em}
+::-webkit-scrollbar-track-piece {background: none}
+::-webkit-scrollbar-thumb {background: #eee}
