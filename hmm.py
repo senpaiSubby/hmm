@@ -1,18 +1,12 @@
 #!/usr/bin/env python
-from quart import (
-    Quart,
-    render_template,
-    session,
-    request,
-    redirect,
-    url_for
-    )
+from quart import Quart, render_template, session, request, redirect, url_for
 from os import system
-from app.backend import *
+from app.backend import addNote, delNote, editNote, searchNotes, listNotes
 
 system("clear")
 
 app = Quart(__name__)
+
 
 @app.route("/", methods=["GET"])
 async def home():
@@ -22,11 +16,11 @@ async def home():
 @app.route("/addnote", methods=["POST"])
 async def nadd():
     form = await request.form
-    print(form)
     if form["inputbar"]:
         addNote(form["inputbar"])
 
     return redirect(url_for("home"))
+
 
 @app.route("/searchnote", methods=["POST"])
 async def nsearch():
@@ -36,12 +30,15 @@ async def nsearch():
         return await render_template("/search.html", notes=results["results"], searchterm=results["searchterm"])
     return redirect(url_for("home"))
 
+
 @app.route("/editnote", methods=["POST"])
 async def nedit():
     form = await request.form
+    print(form)
     if form["editNote"] and form["inputbar"]:
         editNote(form["editNote"], form["inputbar"])
     return redirect(url_for("home"))
+
 
 @app.route("/delnote", methods=["POST"])
 async def ndel():
